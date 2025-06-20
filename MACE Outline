@@ -1,0 +1,32 @@
+# Brainstorm 
+
+*The goal is to intput an DNA strand and output a labeled DNA*
+
+1. Two types of annotations:
+	Structural: TATA boxes, CpG islands, introns, exons, splice sites, coding regions, repeats, mobile DNA, repeats, open reading frames, enchancers and silencer
+	Functional: Predicting Biological Roles, protien function, binding sites, gene expression, protein characterstics 
+2. Datasets:
+	Reference genomes (from Ensembl or NCBI)
+	GENCODE or RefSeq annotations for labeled gene features
+	RNA-seq datasets (for transcriptomic support)
+	Proteomic databases like UniProt for protein annotations
+	ENCODE data (for epigenomic)
+
+3. Models to Look into
+-------------------------------------------------------------------------------------------------------------------------------------------
+| Model                     | What It Does                           | Why It’s Useful for DNA                                            |
+| ------------------------- | -------------------------------------- | ------------------------------------------------------------------ |
+| **CNN**                   | Detects motifs and local patterns      | Great for finding short DNA features (e.g. promoters, motifs)      |
+|---------------------------|----------------------------------------|--------------------------------------------------------------------|
+| **RNN / BiLSTM**          | Understands sequences over time        | Captures the flow of DNA/RNA—useful for exon/intron structure      |
+|---------------------------|----------------------------------------|--------------------------------------------------------------------|
+| **Transformer (DNABERT)** | Finds complex, long-range dependencies | Powerful, especially for regulatory regions or whole-gene contexts |
+|---------------------------|----------------------------------------|--------------------------------------------------------------------|							 	
+| **CRF**                   | Cleans up predicted labels             | Helps make label sequences (like exon/intron tags) more accurate   |
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+4. File Outputs
+	FASTA/FASTQ — DNA/RNA Inputs 
+	GFF3 (General Feature Format version 3)
+	BED (Browser Extensible Data)—used for light, small genome data 
