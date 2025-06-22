@@ -2,14 +2,14 @@ Gene Test Datasets
 
 Drosophila melanogaster
 
-DSCAM1: https://www.ncbi.nlm.nih.gov/gene/35652
+DSCAM1: https://www.ncbi.nlm.nih.gov/gene/35652 / https://genome.ucsc.edu/cgi-bin/hgSearch?search=NT_033778.4&hgsid=2695842842_yH3HD60i8Ux5caG1yKx86iypdzIa&db=dm6
 
-Pax6 (ey): https://www.ncbi.nlm.nih.gov/gene/43812
+Pax6 (ey): https://www.ncbi.nlm.nih.gov/gene/43812 / https://genome.ucsc.edu/cgi-bin/hgSearch?search=eyeless&db=dm6 (isoform B)
 
-Pax6 (toy): https://www.ncbi.nlm.nih.gov/gene/43833
+Pax6 (toy): https://www.ncbi.nlm.nih.gov/gene/43833 /https://genome.ucsc.edu/cgi-bin/hgSearch?search=eyeless&db=dm6 (isoform A)
 
 Mus musculus
 
-Pax6: https://www.ncbi.nlm.nih.gov/gene/18508
+Pax6: https://www.ncbi.nlm.nih.gov/gene/18508 / https://genome.ucsc.edu/cgi-bin/hgSearch?search=Pax6&hgsid=2695842842_yH3HD60i8Ux5caG1yKx86iypdzIa&db=mm39 (241-775)
 
-Trp53: https://www.ncbi.nlm.nih.gov/gene/22059
+Trp53: https://www.ncbi.nlm.nih.gov/gene/22059 / https://genome.ucsc.edu/cgi-bin/hgSearch?search=NC_000077.7&hgsid=2695842842_yH3HD60i8Ux5caG1yKx86iypdzIa&db=mm39
