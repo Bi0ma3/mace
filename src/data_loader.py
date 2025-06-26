@@ -43,7 +43,7 @@ def load_fasta_as_tensor(filepath, alphabet):
     sequences = []
     # Read sequences from the FASTA file and convert them to uppercase strings
     raw_seqs = [str(record.seq).upper() for record in SeqIO.parse(filepath, "fasta")]
-    # Determine the maximum sequence length in the file for consistent encoding
+    # Determine the maximum sequence length in the file for consistent encoding with padding
     max_len = max(len(seq) for seq in raw_seqs)
     # One-hot encode each sequence and collect into a list
     for seq in raw_seqs:
