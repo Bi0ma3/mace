@@ -75,7 +75,7 @@ def get_train_loader(filepath, alphabet, batch_size=4, max_len=50):
     Loads a FASTA file, one-hot encodes the sequences, and returns a DataLoader.
     For now, labels are random binary values.
     """
-    data_tensor = load_fasta_as_tensor(filepath, alphabet, max_len)
+    data_tensor = load_fasta_as_tensor(filepath, alphabet)
 
     # Dummy binary labels (replace with real labels when available)
     labels_tensor = torch.randint(0, 2, (data_tensor.size(0), 1)).float()

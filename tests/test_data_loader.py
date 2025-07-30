@@ -16,7 +16,7 @@ max_len = 50  # update if needed
 batch_size = 4
 
 # === Data ===
-train_loader = get_train_loader(fasta_path, protein_alphabet, batch_size)
+train_loader = get_train_loader(fasta_path, protein_alphabet)
 
 # === Model ===
 input_size = max_len * len(protein_alphabet)
