@@ -1,3 +1,5 @@
+from src.model import MaceModel
+
 net = MaceModel()
 criterion = torch.nn.BCELoss(size_average=True)   
 optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
