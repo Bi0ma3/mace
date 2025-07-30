@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch
 
-class MACEModel(nn.Module):
+class MaceModel(nn.Module):
     """
     MACEModel is a simple feedforward neural network designed to take concatenated
     DNA, RNA, and protein sequence embeddings and output a prediction (classification or regression (eh, maybe?)).
@@ -16,7 +16,7 @@ class MACEModel(nn.Module):
             output_size (int): Dimensionality of the model output (default is 1, e.g., for binary classification).
                 Output size will change depends on number of features we choose to label (promoters, silencers, lnc-DNA etc.)
         """
-        super(MACEModel, self).__init__()
+        super(MaceModel, self).__init__()
         # First fully connected layer: projects concatenated inputs to hidden space
         self.fc1 = nn.Linear(input_size, hidden_size)
         # Non-linear activation function applied after first layer

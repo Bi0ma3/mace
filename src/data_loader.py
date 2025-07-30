@@ -69,3 +69,17 @@ def load_all_modalities(dna_path, rna_path, protein_path):
     x_rna = load_fasta_as_tensor(rna_path, rna_alphabet)
     x_protein = load_fasta_as_tensor(protein_path, protein_alphabet)
     return x_dna, x_rna, x_protein
+
+def get_train_loader(filepath, alphabet, batch_size=4, max_len=50):
+    """
+    Loads a FASTA file, one-hot encodes the sequences, and returns a DataLoader.
+    For now, labels are random binary values.
+    """
+    data_tensor = load_fasta_as_tensor(filepath, alphabet, max_len)
+
+    # Dummy binary labels (replace with real labels when available)
+    labels_tensor = torch.randint(0, 2, (data_tensor.size(0), 1)).float()
+
+    dataset = TensorDataset(data_tensor, labels_tensor)
+    loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    return loader
