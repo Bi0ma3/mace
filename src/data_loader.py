@@ -80,6 +80,6 @@ def get_train_loader(filepath, alphabet, batch_size=4, max_len=50):
     # Dummy binary labels (replace with real labels when available)
     labels_tensor = torch.randint(0, 2, (data_tensor.size(0), 1)).float()
 
-    dataset = TensorDataset(data_tensor, labels_tensor)
-    loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
-    return loader
+    tensor_dataset = (data_tensor, labels_tensor)
+    data_loader = (tensor_dataset, batch_size, True)
+    return data_loader

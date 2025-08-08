@@ -2,6 +2,7 @@ import os
 import sys
 import torch
 from torch.autograd import Variable
+from torch.utils.data import TensorDataset
 import torch.nn as nn
 
 # Add src/ to path
