@@ -51,15 +51,37 @@ class MaceModel(nn.Module):
 
         # Empty list to collect each type of data (DNA/RNA/Protein) per sample
         feats = [] 
-         # Used as a check to ensure each type of data has the same batch size 
+        # Used as a check to ensure each type of data has the same batch size 
         B = None
 
+        # Create a function to turn the input into a [B,F] tensor for the one-hot encoding 
+        def to_BF(t):
+            if t.dim() == 2:                        # [B, F]
+                return t                            # Already in the correct format 
+            elif t.dim() == 3:                      # [B, L, C]
+                return t.reshape(t.size(0), -1)     # Flatten [B, L, C]  to [B, L*C] == [B, F]
+            else:
+                raise ValueError(f"Expected [B, F] or [B, L, C], got {tuple(t.shape)}") # Error if something else 
+        
+        # Now Loop through each feature (DRNA, Protein)
+        for t in (dna, rna, protein):
+            if t is None:
+                continue                        # Let's us only pass DRNA and Protein 
+            tBF = to_BF(t).contiguous()         # Ensures tensor is in shape [B, F]. Contiguous ensures that tensor is packed after slicing 
 
+            if B is None:                       # Starting condition from above
+                B = tBF.size(0)                 # Remember how many modalitites we have. Values will range from 1, 2 or 3
+            elif tBF.size(0) != B:
+                raise ValueError("Batch sizes differ across modalities.")
+            feats.append(tBF)                   # Concat Tensors 
 
+        if not feats:
+            raise ValueError("Provide at least one of DNA, RNA or Protein Sequence") # Prevents empty list from passing through 
+         
 
 
         # Concatenate all three modalities along the feature dimension (axis=1)
-        x = torch.cat([dna, rna, protein], dim=1) 
+        x = torch.cat(feats, dim=1) 
         # Apply first linear transformation and activation
         x = self.relu(self.fc1(x))
         # Pass through final linear layer to generate output
