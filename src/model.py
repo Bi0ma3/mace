@@ -24,9 +24,21 @@ class MaceModel(nn.Module):
         # Final output layer: reduces hidden activations to the final output dimension
         self.fc2 = nn.Linear(hidden_size, output_size)
 
-    def forward(self, dna, rna, protein):
+    def forward(self, dna = None, rna = None, protein = None): #None makes the arguement optional
         """
         Defines the forward pass of the model.
+
+        Parameters:
+            [B, F] feature vectors, or 
+            [B, L, C] one-hot sequences (auto-flattened to [B, L*C]).
+
+            F = L*C = How many numbers describe one sample at the moment it goes into a linear layer 
+            B = Batch size (how many samples at once).
+            L = Length of the Sequence (i.e. How many Positions)
+            C = Channel = alphabet size. Fixed at 4 for D/RNA and protiens
+
+    Any modality may be None.
+    Returns: [B, output_size]
 
         Parameters:
             dna (torch.Tensor): One-hot encoded input tensor for DNA sequences.
@@ -36,8 +48,18 @@ class MaceModel(nn.Module):
         Returns:
             torch.Tensor: Output tensor from the model.
         """
+
+        # Empty list to collect each type of data (DNA/RNA/Protein) per sample
+        feats = [] 
+         # Used as a check to ensure each type of data has the same batch size 
+        B = None
+
+
+
+
+
         # Concatenate all three modalities along the feature dimension (axis=1)
-        x = torch.cat([dna, rna, protein], dim=1)
+        x = torch.cat([dna, rna, protein], dim=1) 
         # Apply first linear transformation and activation
         x = self.relu(self.fc1(x))
         # Pass through final linear layer to generate output
