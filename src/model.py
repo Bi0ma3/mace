@@ -17,10 +17,11 @@ class MaceModel(nn.Module):
                 Output size will change depends on number of features we choose to label (promoters, silencers, lnc-DNA etc.)
         """
         super(MaceModel, self).__init__()
-        # First fully connected layer: projects concatenated inputs to hidden space
-        self.fc1 = nn.Linear(input_size, hidden_size)
+        #First fully connected layer: projects concatenated inputs to hidden space
+        #self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc1 = nn.LazyLinear(hidden_size)
         # Non-linear activation function applied after first layer
-        self.relu = nn.ReLU() #We could use LeakyReLU
+        self.relu = nn.ReLU() 
         # Final output layer: reduces hidden activations to the final output dimension
         self.fc2 = nn.Linear(hidden_size, output_size)
 
@@ -81,7 +82,9 @@ class MaceModel(nn.Module):
 
 
         # Concatenate all three modalities along the feature dimension (axis=1)
-        x = torch.cat(feats, dim=1) 
+        x = torch.cat(feats, dim=1)
+        print("[DEBUG] concatenated x.shape:", tuple(x.shape))
+        print("[DEBUG] fc1 expects in_features:", self.fc1.in_features) 
         # Apply first linear transformation and activation
         x = self.relu(self.fc1(x))
         # Pass through final linear layer to generate output

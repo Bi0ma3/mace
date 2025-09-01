@@ -21,8 +21,10 @@ train_loader = get_train_loader(fasta_path, protein_alphabet)
 
 # === Model ===
 input_size = max_len * len(protein_alphabet)
-net = MaceModel(input_size)
-criterion = nn.BCELoss()
+#net = MaceModel(input_size)
+#criterion = nn.BCELoss()
+net = MaceModel(input_size=1)  # value unused by LazyLinear, but keep the arg
+criterion = nn.BCEWithLogitsLoss()  # handles the sigmoid internally
 optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
 
 # === Training ===
