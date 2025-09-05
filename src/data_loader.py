@@ -1,4 +1,5 @@
 from Bio import SeqIO
+from torch.utils.data import TensorDataset, DataLoader
 import torch
 
 # Define valid characters for each biological sequence type
@@ -70,16 +71,16 @@ def load_all_modalities(dna_path, rna_path, protein_path):
     x_protein = load_fasta_as_tensor(protein_path, protein_alphabet)
     return x_dna, x_rna, x_protein
 
-def get_train_loader(filepath, alphabet, batch_size=4, max_len=50):
+def get_train_loader(filepath, alphabet, batch_size=64,shuffle = True, max_len=50): #Training dataset
     """
     Loads a FASTA file, one-hot encodes the sequences, and returns a DataLoader.
     For now, labels are random binary values.
     """
-    data_tensor = load_fasta_as_tensor(filepath, alphabet)
+    data_tensor = load_fasta_as_tensor(filepath, alphabet)                          #[N, L, C] or [N, F] 
 
     # Dummy binary labels (replace with real labels when available)
-    labels_tensor = torch.randint(0, 2, (data_tensor.size(0), 1)).float()
+    labels_tensor = torch.randint(0, 2, (data_tensor.size(0), 1)).float()           #[N, 1] = matches output [B, 1] shape
 
-    tensor_dataset = (data_tensor, labels_tensor)
-    data_loader = (tensor_dataset, batch_size, True)
+    tensor_dataset = TensorDataset(data_tensor.float(), labels_tensor.float()) # creates (x,y) tensor. Float makes it compatibale with model and loss
+    data_loader = DataLoader(tensor_dataset, batch_size=batch_size, shuffle=True)
     return data_loader
