@@ -18,7 +18,7 @@ batch_size = 4
 
 # === Data ===
 train_loader = get_train_loader(fasta_path, protein_alphabet) 
-print('Debug: ', train_loader)
+
 
 # === Model ===
 input_size = max_len * len(protein_alphabet)
@@ -32,8 +32,8 @@ optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
 num_epochs = 10
 for epoch in range(num_epochs):
     for i, (inputs, labels) in enumerate(train_loader):
-        inputs = Variable(inputs.float())
-        labels = Variable(labels.float())
+        inputs = inputs.float() #Variable is legacy. Get rid of it
+        labels = labels.float()
 
         output = net(inputs)
         loss = criterion(output, labels)
